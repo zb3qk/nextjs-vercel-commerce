@@ -10,6 +10,7 @@ import { Analytics } from '@vercel/analytics/react';
 
 const Noop: FC<{ children?: ReactNode }> = ({ children }) => <>{children}</>
 
+export { reportWebVitals } from 'next-axiom';
 export default function MyApp({ Component, pageProps }: AppProps) {
   const Layout = (Component as any).Layout || Noop
 

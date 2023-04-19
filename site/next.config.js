@@ -1,5 +1,6 @@
 const commerce = require('./commerce.config.json')
 const { withCommerceConfig, getProviderName } = require('./commerce-config')
+const { withAxiom } = require('next-axiom');
 
 const provider = commerce.provider || getProviderName()
 const isBC = provider === '@vercel/commerce-bigcommerce'
@@ -8,7 +9,8 @@ const isSaleor = provider === '@vercel/commerce-saleor'
 const isSwell = provider === '@vercel/commerce-swell'
 const isVendure = provider === '@vercel/commerce-vendure'
 
-module.exports = withCommerceConfig({
+
+module.exports = withAxiom(withCommerceConfig({
   commerce,
   i18n: {
     locales: ['en-US', 'es'],
@@ -40,7 +42,7 @@ module.exports = withCommerceConfig({
   experimental: {
     esmExternals: 'loose',
   },
-})
+}))
 
 // Don't delete this console log, useful to see the commerce config in Vercel deployments
 console.log('next.config.js', JSON.stringify(module.exports, null, 2))
