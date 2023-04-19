@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import commerce from '@lib/api/commerce'
 import { Layout } from '@components/common'
 import { ProductView } from '@components/product'
+import {useEffect} from "react";
 
 export async function getStaticProps({
   params,
@@ -50,9 +51,10 @@ export async function getStaticProps({
   }
 }
 
-export async function getStaticPaths({ locales }: GetStaticPathsContext) {
+import { log } from 'next-axiom'
+export async function getStaticPaths
+({ locales }: GetStaticPathsContext) {
   const { products } = await commerce.getAllProductPaths()
-
   return {
     paths: locales
       ? locales.reduce<string[]>((arr, locale) => {
@@ -72,6 +74,10 @@ export default function Slug({
   relatedProducts,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter()
+
+  useEffect(() => {
+    log.debug('new sign-in challenge', { customerId: 32423, auth: 'session' })
+  }, [])
 
   return router.isFallback ? (
     <h1>Loading...</h1>
